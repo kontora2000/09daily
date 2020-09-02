@@ -7,22 +7,14 @@
     <div class="bottom-cont">
       <NavBar />
       <div class="license-cont">
-        <div
-          class="license-text"
-        >
-          Информационное агентство «09.DAILY»: свидетельство о регистрации СМИ ИА № ФС89-XXXXX выдано Федеральной службой по надзору в сфере связи, информационных технологий и массовых коммуникаций (Роскомнадзор) XX XX XXXX года.
-        </div>
+        <div class="license-text">Информационное агентство «09.DAILY»: свидетельство о регистрации СМИ ИА № ФС89-XXXXX выдано Федеральной службой по надзору в сфере связи, информационных технологий и массовых коммуникаций (Роскомнадзор) XX XX XXXX года.</div>
         <div class="copyrights-cont">
           <span class="age-restriction">16+</span>
-          <span class="copyright">©&nbsp;09daily,&nbsp;2020</span>
+          <span class="copyright">©&nbsp;09daily.ru,&nbsp;2020</span>
         </div>
       </div>
       <div class="kontora-copyright">
-        Задизайнено в&nbsp;
-        <a class="kontora-sign" href="https://kontora.cc" target="_blank">
-          <span class="link-underline">Конторе</span>
-          <sup>®</sup>
-        </a>
+          Сделано в&nbsp;<a class="kontora-sign" href="https://kontora.cc" target="_blank"><span class="link-underline">Конторе</span><sup>®</sup></a>
       </div>
     </div>
   </footer>

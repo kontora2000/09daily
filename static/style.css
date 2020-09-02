@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@0;1&display=swap');
 
-/* Noname.press CSS v.0.0 */
+/* 09daily.ru CSS v.0.1 */
 /* Kontora, 07.2020 */
 
 :root {
@@ -63,7 +63,6 @@ body {
     border: none;
     margin: 0;
     padding: 0;
-    overflow-x:hidden;
 }
 
 h1,
@@ -187,18 +186,19 @@ input:matches([type="password"], [type="search"], [type="email"], [type="text"])
     border-right: none;
     border-left: none;
     border-bottom: 2.5px solid var(--Black100);
+    cursor: text;
     letter-spacing: -.02em;
     outline: 0;
-    padding: 2rem 0;
+    padding: 1.2rem 0;
     transition: all .15s ease-in-out;
 }
 input:matches([type="password"], [type="search"], [type="email"], [type="text"]):focus,
 input:matches([type="password"], [type="search"], [type="email"], [type="text"]):valid {
     border-bottom-color: var(--LightBlue100);
 }
-input:matches([type="password"], [type="search"], [type="email"], [type="text"]):invalid {
+/*input:matches([type="password"], [type="search"], [type="email"], [type="text"]):invalid {
     border-bottom-color: var(--Red-error100);
-}
+}*/
 
 input:matches([type="password"], [type="search"], [type="email"], [type="text"]) + label[data-placeholder] {
     pointer-events: none;
@@ -206,9 +206,10 @@ input:matches([type="password"], [type="search"], [type="email"], [type="text"])
 
 input:matches([type="password"], [type="search"], [type="email"], [type="text"]) + label[data-placeholder]:after {
     content: attr(data-placeholder);
+    cursor: text;
     display: block;
     position: absolute;
-    top: 50%;
+    top: 2.2rem;
     left: 0;
     -webkit-transform: translate(0%, -50%);
             transform: translate(0%, -50%);
@@ -216,8 +217,8 @@ input:matches([type="password"], [type="search"], [type="email"], [type="text"])
             transition: all .15s ease-in-out;
 }
 input:matches([type="password"], [type="search"], [type="email"], [type="text"]):focus + label[data-placeholder]:after,
-input:matches([type="password"], [type="search"], [type="email"], [type="text"]):valid + label[data-placeholder]:after,
-input:matches([type="password"], [type="search"], [type="email"], [type="text"]):invalid + label[data-placeholder]:after {
+input:matches([type="password"], [type="search"], [type="email"], [type="text"]):valid + label[data-placeholder]:after/*,
+input:matches([type="password"], [type="search"], [type="email"], [type="text"]):invalid + label[data-placeholder]:after*/ {
     -webkit-transform: translate(-5%, -190%) scale(.9, .9);
             transform: translate(-5%, -190%) scale(.9, .9);
 }
@@ -225,9 +226,9 @@ input:matches([type="password"], [type="search"], [type="email"], [type="text"])
 input:matches([type="password"], [type="search"], [type="email"], [type="text"]):valid + label[data-placeholder]:after {
     color: var(--Green100);
 }
-input:matches([type="password"], [type="search"], [type="email"], [type="text"]):invalid + label[data-placeholder]:after {
+/*input:matches([type="password"], [type="search"], [type="email"], [type="text"]):invalid + label[data-placeholder]:after {
     color: var(--Red-error100);
-}
+}*/
 
 input:matches([type="button"], [type="submit"]) {
     font-weight: 500;
@@ -504,10 +505,10 @@ header {
     opacity: 1;
 }
 
-.header-white .active.menu-header-link {
+.header-white .nuxt-link-active.menu-header-link {
     color: var(--Blue100);
 }
-.header-white .active.menu-header-link::before {
+.header-white .nuxt-link-active.menu-header-link::before {
     content: '↓';
     opacity: 1;
 }
@@ -859,6 +860,7 @@ header {
     font-size: 2.8rem;
     letter-spacing: -.02em;
     line-height: 3.2rem;
+    margin-left: 1.2rem;
 }
 
 .attached-news-old-cont {
@@ -1116,7 +1118,7 @@ header {
 
 .last-news-cont {
     grid-column: 1/5;
-    grid-row: 7/55;
+    grid-row: 7/45;
     position: relative;
 }
 
@@ -1142,6 +1144,14 @@ header {
 .last-news-item:first-child .news-item-header {
     font-size: 2.2rem;
     line-height: 2.8rem;
+}
+
+.last-news-item .news-item-header-cont.font-white {
+    color: var(--White100);
+}
+
+.last-news-item.news-item:hover .news-item-header {
+    border-bottom-color: var(--White100);
 }
 
 .link-to-news-cont {
@@ -1447,14 +1457,18 @@ header {
 
 .ad-mainpage-1-cont {
     grid-column: 1/5;
-    grid-row: 57/87;
+    grid-row: 47/87;
     position: relative;
 }
 
-.ad-mainpage-1-wrapper {
+.ad-mainpage-1-wrapper,
+.ad-mainpage-3-wrapper,
+.ad-category-1-wrapper,
+.ad-category-2-wrapper,
+.ad-last-posts-1-wrapper {
     position: sticky;
     position: -webkit-sticky;
-    top: 12rem;
+    top: 8.8rem;
     min-height: 320px;
 }
 
@@ -1476,12 +1490,6 @@ header {
     grid-row: 187/227;
     margin-top: 5.6rem;
     position: relative;
-}
-.ad-mainpage-3-wrapper {
-    position: sticky;
-    position: -webkit-sticky;
-    top: 12rem;
-    min-height: 320px;
 }
 
 .ad-category-1-cont {
@@ -1545,13 +1553,31 @@ footer .social-subscribe-cont {
 }
 
 .subscribe-input-wrapper {
-    display: inline-block;
+    display: block;
+    width: 100%;
+}
+
+.subscribe-input-wrapper>input[type="text"] {
+    border-bottom-color: var(--White100);
+    color: var(--White100);
+    display: block;
+    height: 4.4rem;
+    padding: 0 0 2.4rem;
+    width: 100%;
+}
+
+.subscribe-input-wrapper>input[type="text"] + label[data-placeholder]:after {
+    opacity: .56;
+    top: 1.1rem;
 }
 
 .button-subscribe-send {
     background: transparent;
     border-radius: 0;
+    margin-top: -1.1rem;
     padding: 0;
+    position: absolute;
+    right: 0;
 }
 .button-subscribe-send:hover {
     background: transparent;
@@ -1639,12 +1665,13 @@ footer .social-subscribe-cont {
 }
 
 .subsrcibe-cont-footer {
+    display: flex;
     grid-column: 9/17;
 }
 
 .subsribe-input-cont {
-    display: inline-block;
-    vertical-align: top;
+    display: inline-flex;
+    flex-grow: 999;
 }
 
 footer .bottom-cont {

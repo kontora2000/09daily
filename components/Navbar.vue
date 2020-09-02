@@ -6,9 +6,7 @@
       :to=" '/' + menuItem.url"
       :class="[ 'menu-header-link', { 'active': activeItem === (index+1) }]"
       @click="setActive(index+1)"
-    >
-      {{ menuItem.title }}
-    </nuxt-link>
+    >{{ menuItem.title }}</nuxt-link>
   </nav>
 </template>
 
