@@ -1,7 +1,7 @@
 <template>
   <div class="last-news-item news-item">
     <nuxt-link class="last-news-item-link" :to="post.link">
-      <picture v-if="post.thumb" class="news-item-cover">
+      <picture v-if="post.thumb && (number === 1 || number < 0)" class="news-item-cover">
         <img class="news-item-cover-img" :src="post.thumb">
       </picture>
       <div class="news-item-meta">
@@ -38,7 +38,8 @@ export default {
   },
   computed: {
     isWhite () {
-      if (this.number > 2) {
+      if (this.number < 0) { return false }
+      if (this.number > 3) {
         return false
       } else {
         return true
