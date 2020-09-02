@@ -4,7 +4,7 @@
       Последнее
     </h1>
     <Adv number="1" type="last" />
-    <Item v-for="mypost in posts" :key="mypost.ID" :post="mypost" class="news-item-cont news-item" />
+    <Item v-for="mypost in posts" :key="mypost.ID" :post="mypost" class="news-item-cont news-item" :number="1" />
   </div>
 </template>
 

@@ -3,11 +3,11 @@
     <LogoHeader />
     <Navbar />
     <div class="search-header">
-      <a class="link-search search-open" href="#">
+      <nuxt-link class="link-search search-open" :to="'search/s?=' + searchString">
         <svg class="icon-svg icon-search-svg">
           <use xlink:href="sprite.svg#icon-search" />
         </svg>
-      </a>
+      </nuxt-link>
     </div>
   </header>
 </template>
@@ -21,6 +21,11 @@ export default {
   components: {
     LogoHeader,
     Navbar
+  },
+  data () {
+    return {
+      searchString: ''
+    }
   },
   mounted () {
     document.addEventListener('DOMContentLoaded', () => {
