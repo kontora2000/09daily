@@ -9,11 +9,11 @@
       <Item v-for="(mypost, index) in posts" :key="mypost.ID" :post="mypost" :number="index+1" />
     </div>
     <div class="link-to-news-cont">
-      <nuxt-link class="cont-header-rubric-link" to="/news">
+      <nuxt-link class="link-to-news" to="/news">
         <span class="link-to-news-letters">Все&nbsp;новости</span>
         <span class="link-to-news-arrow-gradient">
           <span class="link-to-news-arrow">→</span>
-          <span class="link-to-news-gradient" />
+          <span class="link-to-news-gradient"></span>
         </span>
       </nuxt-link>
     </div>
