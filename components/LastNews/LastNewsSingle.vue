@@ -3,7 +3,7 @@
     <h1 class="last-posts-header">
       Последнее
     </h1>
-    <Adv number="1" type="last" />
+    <Adv :number="1-0" type="last" />
     <Item v-for="mypost in posts" :key="mypost.ID" :post="mypost" class="news-item-cont news-item" :number="0-1" />
   </div>
 </template>
@@ -37,7 +37,21 @@ export default {
   },
   data () {
     return {
-      posts: []
+      posts: [],
+      page: 2
+    }
+  },
+  mounted () {
+    this.$root.$on('loadmore', this.upload)
+  },
+  methods: {
+    async upload () {
+      const res = await this.$axios.get(`${urls.restURL}/last/${this.page}`)
+      if (res.data) {
+        if (res.data.posts.length > 0) {
+          this.posts.push(...res.data.posts)
+        }
+      }
     }
   }
 }

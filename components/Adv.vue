@@ -14,13 +14,12 @@
   <div v-else class="ad-last-posts-1-cont">
     <div class="ad-last-posts-1-wrapper">
       <a class="ad-last-posts-link" href="#">
-        <img class="ad-last-posts-img ad-img" src="img/ad/mainpage-1.png">
+        <img class="ad-last-posts-img ad-img" src="/img/ad/mainpage-1.png">
       </a>
       <div class="ad-prices-link-wrapper">
         <a class="ad-prices-link link-underline" href="#">Разместить рекламу</a>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
