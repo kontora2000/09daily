@@ -8,8 +8,8 @@
       <div class="round round-5 scale-in" />
       <div class="round round-6 scale-in" />
     </div>
-    <nuxt-link class="logo-letters" to="/">
-      09daily<span class="only-desktop">.ru</span>
+    <nuxt-link class="logo-link" to="/">
+      <div class="logo-svg"></div>
     </nuxt-link>
   </div>
 </template>

@@ -1,7 +1,6 @@
 <template>
   <header :class="headerClass">
     <LogoHeader />
-    <Navbar />
     <div class="search-header">
       <nuxt-link class="link-search search-open" :to="'search/?s=' + searchString">
         <svg class="icon-svg icon-search-svg">
@@ -9,6 +8,7 @@
         </svg>
       </nuxt-link>
     </div>
+    <Navbar />
   </header>
 </template>
 
