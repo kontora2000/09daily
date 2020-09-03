@@ -1821,8 +1821,7 @@ footer .bottom-cont a:hover {
     }
 
     header {
-        grid-template-columns: 10rem 8fr .5fr;
-        grid-column-gap: .8rem;
+        height: 5.6rem;
         padding: 1.6rem .8rem;
     }
 
@@ -1831,11 +1830,15 @@ footer .bottom-cont a:hover {
     }
 
     .logo-circle-gradient {
-        left: -6rem;
+        left: -6.6rem;
     }
 
     .menu-header {
         display: none;
+    }
+
+    .search-header {
+        right: .8rem;
     }
 
     .main-grid {
@@ -1985,6 +1988,11 @@ footer .bottom-cont a:hover {
         grid-column: 1/2;
     }
 
+    .ad-mainpage-2-wrapper {
+        margin: 2.4rem .8rem;
+        width: calc(100% - 1.6rem);
+    }
+
     .ad-mainpage-2-cont {
         margin-left: -.8rem;
     }
@@ -2027,6 +2035,7 @@ footer .bottom-cont a:hover {
     }
 
     .subsrcibe-cont-footer {
+        display: block;
         grid-column: 1/2;
         grid-row: 8/12;
     }
@@ -2038,7 +2047,7 @@ footer .bottom-cont a:hover {
 
     .subsribe-input-cont {
         display: block;
-        margin-top: .8rem;
+        margin-top: 2.4rem;
     }
 
     footer .bottom-cont {
