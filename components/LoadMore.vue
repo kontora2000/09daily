@@ -1,6 +1,6 @@
 <template>
   <div class="button-showmore-cont">
-    <button class="button-showmore">
+    <button class="button-showmore" @click.prevent="upload">
       <nobr><span class="icon-arrow-down">↓</span><span>Ещё&nbsp;{{ count }}</span><span class="button-showmore-items-quantity">из&nbsp;{{ total }}</span></nobr>
     </button>
   </div>
@@ -18,6 +18,12 @@ export default {
       type: String,
       default: '1488'
     }
+  },
+  methods: {
+    upload () {
+      this.$root.$emit('loadmore')
+    }
   }
+
 }
 </script>

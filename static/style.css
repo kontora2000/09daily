@@ -396,7 +396,8 @@ a {
   }
 
   .round-6 {
-    animation-delay: 5s !important;
+    left:0 !important;
+    animation-delay: 0s !important;
   }
 
   .scale-in {

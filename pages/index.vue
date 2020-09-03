@@ -4,8 +4,8 @@
       <AttachedMainItem :post="attachedMainPost" />
       <AttachedDefaultItem v-for="mypost in attachedDefaultPosts" :key="mypost.id" :post="mypost" />
       <LastNews />
-      <Adv :number="1" />
-      <Adv :number="2" />
+      <Adv :number="0+1" />
+      <Adv :number="0+2" />
       <div class="ad-mainpage-3-cont">
         <div class="ad-mainpage-3-wrapper">
           <a class="ad-mainpage-link" href="#">

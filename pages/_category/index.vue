@@ -3,7 +3,7 @@
     <div class="main-grid category-page">
       <AdvCat :number="1" />
       <AdvCat :number="2" />
-      <CatNewsItem v-for="post in posts" :key="post.id" :post="post" />
+      <CatNewsItem v-for="post in posts" :key="post.id" :post="post" :category="categoryName" />
     </div>
     <LoadMore v-if="isNeedToUpload" count="10" :total="allCount" />
   </main>
@@ -27,14 +27,14 @@ export default {
   },
   async asyncData ({ params, $axios, error }) {
     try {
-      const res = await $axios.get(`${urls.restURL}/category/${params.category}/1`, urls.restHeaders)
+      const res = await $axios.get(`${urls.restURL}/category/${params.category}/1`)
       // eslint-disable-next-line no-throw-literal
       if (res.data === undefined) { throw ({ statusCode: 404, message: 'Страница не найдена' }) }
       return {
         posts: res.data.posts,
         isNeedToUpload: res.data.allCount > res.data.posts.length,
         categoryID: res.data.posts[0].category_id,
-        categoryName: res.data.posts[0].category,
+        categoryName: res.data.categoryName,
         categoryDescription: res.data.categoryDescr,
         allCount: res.data.allCount
       }
@@ -48,6 +48,18 @@ export default {
       isLoadedOnce: false,
       page: 2,
       isLoading: false
+    }
+  },
+  mounted () {
+    this.$root.$on('loadmore', this.upload)
+  },
+  methods: {
+    async upload () {
+      const res = await this.$axios.get(`${urls.restURL}/category/${this.$route.params.category}/${this.page}`)
+      if (res.data) {
+        this.posts.push(...res.data.posts)
+        this.page += 1
+      }
     }
   },
   head () {

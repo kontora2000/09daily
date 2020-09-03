@@ -1,5 +1,5 @@
 <template>
-  <div class="post-tags-cont">
+  <div v-if="tags.length > 0" class="post-tags-cont">
     <nuxt-link
       v-for="tag in tags"
       :key="tag.id"
@@ -17,7 +17,6 @@ export default {
   props: {
     tags: {
       type: Array,
-      required: true,
       default: () => []
     }
   }

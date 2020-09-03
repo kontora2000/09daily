@@ -8,14 +8,57 @@
       <div class="round round-5 scale-in" />
       <div class="round round-6 scale-in" />
     </div>
-    <a class="logo-letters" href="/">
+    <nuxt-link class="logo-letters" to="/">
       09daily<span class="only-desktop">.ru</span>
-    </a>
+    </nuxt-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'LogoHeader'
+  name: 'LogoHeader',
+  mounted () {
+    document.addEventListener('DOMContentLoaded', () => {
+      const r1 = document.querySelector('.round-1')
+      const r2 = document.querySelector('.round-2')
+      const r3 = document.querySelector('.round-3')
+      const r4 = document.querySelector('.round-4')
+      const r5 = document.querySelector('.round-5')
+      const r6 = document.querySelector('.round-6')
+
+      document.querySelector('.logo-header').addEventListener(
+        'mouseenter',
+        () => {
+          r1.style.animationDelay = '0s !important'
+          r2.style.animationDelay = '0.5s !important'
+          r3.style.animationDelay = '1s !important'
+          r4.style.animationDelay = '1.5s !important'
+          r5.style.animationDelay = '2s !important'
+          r6.style.animationDelay = '2.5s !important'
+          r1.classList.add('scale-in-fast')
+          r2.classList.add('scale-in-fast')
+          r3.classList.add('scale-in-fast')
+          r4.classList.add('scale-in-fast')
+          r5.classList.add('scale-in-fast')
+          r6.classList.add('scale-in-fast')
+        })
+      document.querySelector('.logo-header').addEventListener(
+        'mouseleave',
+        () => {
+          r1.style.animationDelay = '0s !important'
+          r2.style.animationDelay = '1s !important'
+          r3.style.animationDelay = '2s !important'
+          r4.style.animationDelay = '3s !important'
+          r5.style.animationDelay = '4s !important'
+          r6.style.animationDelay = '5s !important'
+          r1.classList.remove('scale-in-fast')
+          r2.classList.remove('scale-in-fast')
+          r3.classList.remove('scale-in-fast')
+          r4.classList.remove('scale-in-fast')
+          r5.classList.remove('scale-in-fast')
+          r6.classList.remove('scale-in-fast')
+        })
+    })
+  }
 }
 </script>

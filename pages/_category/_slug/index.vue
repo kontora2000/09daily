@@ -13,7 +13,7 @@
             {{ post.category }}
           </nuxt-link>
         </div>
-        <div v-if="post.author" class="post-author">
+        <div v-if="post.author !== undefined" class="post-author">
           <nuxt-link class="author-link link-underline" :to="'/search/?s=' + encodeURIComponent( JSON.stringify(['@'+ post.author.replace(' ','_')]))">
             {{ post.author }}
           </nuxt-link>
@@ -68,12 +68,12 @@
       </div>
       <div v-html="post.post_content" />
       <div v-if="post.author" class="longread-author-cont">
-        <a class="longread-author-link link-underline" :to="'/search/?s=' + encodeURIComponent( JSON.stringify(['@'+ post.author.replace(' ','_')]))">Автор поста</a>
+        <nuxt-link class="longread-author-link link-underline" :to="'/search/?s=' + encodeURIComponent( JSON.stringify(['@'+ post.author.replace(' ','_')]))">Автор поста</nuxt-link>
       </div>
-      <Tags tags="post.tags" />
+      <Tags :tags="post.tags" />
     </article>
     <LastNewsSingle />
-    <LoadMore />
+    <LoadMore count="10" total="656" />
   </main>
 </template>
 

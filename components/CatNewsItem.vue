@@ -1,12 +1,12 @@
 <template>
   <div v-if="post.attached !== true" class="news-item-cont news-item">
-    <nuxt-link class="news-item-link" :to="post.category_link + '/' + post.slug">
+    <nuxt-link class="news-item-link" :to="post.link">
       <picture v-if="post.thumb" class="news-item-cover">
         <img class="news-item-cover-img" :src="post.thumb">
       </picture>
       <div class="news-item-meta">
         <div class="news-rubric-link-wrapper">
-          {{ post.category }}
+          {{ category }}
         </div>
         <div class="publication-date">
           {{ post.date }}
@@ -25,8 +25,12 @@
       </picture>
       <div class="attached-news-text-over-pic">
         <div class="news-item-meta">
-          <div class="news-rubric-link-wrapper">{{ post.category }}</div>
-          <div class="publication-date">{{ post.date }}</div>
+          <div class="news-rubric-link-wrapper">
+            {{ category }}
+          </div>
+          <div class="publication-date">
+            {{ post.date }}
+          </div>
         </div>
         <div class="news-item-header-cont">
           <span class="news-item-header">{{ post.title }}</span><span class="news-item-subheader">Эксперты о ситуации на рынке труда Северного Кавказа</span>
@@ -43,6 +47,10 @@ export default {
     post: {
       type: Object,
       required: true
+    },
+    category: {
+      type: String,
+      default: 'Новости'
     }
   }
 }
