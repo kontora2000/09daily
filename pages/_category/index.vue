@@ -74,7 +74,7 @@ export default {
     ]
     meta.push(...og)
     return {
-      title: process.env.baseTitle + this.categoryName,
+      title: '09daily - ' + this.categoryName,
       meta
     }
   }

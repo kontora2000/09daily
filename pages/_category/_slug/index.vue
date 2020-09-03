@@ -109,6 +109,11 @@ export default {
     } catch (e) {
       error(e)
     }
+  },
+  head () {
+    return {
+      title: this.post.post_title
+    }
   }
 }
 
