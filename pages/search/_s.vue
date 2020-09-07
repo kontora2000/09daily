@@ -11,13 +11,18 @@
       </div>
       <LoadMore count="10" total="allCount" />
     </template>
-    <template v-else>
+    <template v-else-if="isNoResults">
       <div class="main-grid">
         <div class="search-results-header-wrapper">
           <h2 class="search-results-header">
             Поиск не дал результатов
           </h2>
         </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="main-grid">
+        <div class="search-results-header-wrapper" />
       </div>
     </template>
   </main>
@@ -43,7 +48,8 @@ export default {
       posts: [],
       isNeedToUpload: false,
       resultsCount: '',
-      allCount: 0
+      allCount: 0,
+      isNoResults: false
     }
   },
   computed: {

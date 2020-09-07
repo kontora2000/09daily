@@ -19,6 +19,9 @@ export default {
       default: '1488'
     }
   },
+  mounted () {
+    if (this.count > this.total) { this.count = this.total }
+  },
   methods: {
     upload () {
       this.$root.$emit('loadmore')

@@ -1,5 +1,5 @@
 export default {
-  baseURL: 'http://localhost:3000/',
+  baseURL: 'http://09daily.ru/',
   apiBaseURL: 'https://api.elbrus.press/',
   restURL: 'https://api.elbrus.press/wp-json/elbruspress/v1',
   socials: {

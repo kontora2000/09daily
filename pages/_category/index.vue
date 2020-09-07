@@ -5,7 +5,15 @@
       <AdvCat :number="2" />
       <CatNewsItem v-for="post in posts" :key="post.id" :post="post" :category="categoryName" />
     </div>
-    <LoadMore v-if="isNeedToUpload" count="10" :total="allCount" />
+    <LoadMore v-if="isNeedToUpload && !isLoadedOnce" count="10" :total="allCount" />
+    <infinite-loading
+      v-if="isLoadedOnce"
+      @infinite="load"
+    >
+      <div slot="spinner">
+        <LoadIndicator />
+      </div>
+    </infinite-loading>
   </main>
 </template>
 
@@ -15,6 +23,7 @@ import og from '@/assets/js/og'
 import CatNewsItem from '@/components/CatNewsItem'
 import AdvCat from '@/components/AdvCat'
 import LoadMore from '@/components/LoadMore'
+import LoadIndicator from '@/components/LoadIndicator'
 
 export default {
   transition: {
@@ -23,7 +32,8 @@ export default {
   components: {
     LoadMore,
     CatNewsItem,
-    AdvCat
+    AdvCat,
+    LoadIndicator
   },
   async asyncData ({ params, $axios, error }) {
     try {
@@ -54,12 +64,13 @@ export default {
     this.$root.$on('loadmore', this.upload)
   },
   methods: {
-    async upload () {
+    async upload ($state) {
       const res = await this.$axios.get(`${urls.restURL}/category/${this.$route.params.category}/${this.page}`)
-      if (res.data) {
+      if (res.data.posts.length > 0) {
         this.posts.push(...res.data.posts)
         this.page += 1
-      }
+        if ($state) { $state.loaded = true }
+      } else if ($state) { $state.complete = true }
     }
   },
   head () {

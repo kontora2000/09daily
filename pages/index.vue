@@ -20,7 +20,19 @@
       </div>
       <NewsItem v-for="post in simplePosts" :key="post.id" :post="post" />
     </div>
-    <LoadMore count="10" :total="allCount" />
+    <template v-if="!isLoadedOnce">
+      <LoadMore count="10" :total="allCount" />
+    </template>
+    <template v-else>
+      <infinite-loading
+        v-if="isLoadedOnce"
+        @infinite="load"
+      >
+        <div slot="spinner">
+          <LoadIndicator />
+        </div>
+      </infinite-loading>
+    </template>
   </main>
 </template>
 
@@ -33,6 +45,7 @@ import NewsItem from '@/components/NewsItem'
 import LastNews from '@/components/LastNews/LastNews'
 import LoadMore from '@/components/LoadMore'
 import Adv from '@/components/Adv'
+import LoadIndicator from '@/components/LoadIndicator'
 
 export default {
   components: {
@@ -41,7 +54,8 @@ export default {
     AttachedDefaultItem,
     NewsItem,
     LoadMore,
-    Adv
+    Adv,
+    LoadIndicator
   },
   transition: {
     name: 'fade'
@@ -60,7 +74,31 @@ export default {
       attachedMainPost: attachedPostsRes.data.posts[0],
       attachedDefaultPosts: attachedPostsRes.data.posts.slice(1, 4),
       simplePosts: simplePostsRes.data.posts,
-      allCount: simplePostsRes.data.allCount
+      allCount: simplePostsRes.data.allCount,
+      isPageLoaded: true
+    }
+  },
+  data () {
+    return {
+      page: 2,
+      isLoadedOnce: false,
+      isLoading: false
+    }
+  },
+  mounted () {
+    this.$root.$on('loadmore', this.load)
+  },
+  methods: {
+    async load ($state) {
+      if (this.isLoading) { return }
+      if (this.isPageLoaded === false) { return }
+      const res = await this.$axios.get(`${urls.restURL}/posts/${this.page}`)
+      if (res.data.posts.length > 0) {
+        this.simplePosts.push(...res.data.posts)
+        this.page = this.page + 1
+        this.isLoadedOnce = true
+        if ($state) { $state.loaded() }
+      } else if ($state) { $state.complete() }
     }
   }
 }

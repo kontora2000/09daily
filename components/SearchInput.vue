@@ -28,7 +28,7 @@
         @keyup.delete="deleteBlock(blocks.length - 1)"
       >
     </div>
-    <a v-show="isShowCloseButton" class="search-close">
+    <a v-show="isShowCloseButton" class="search-close" @click.prevent="close">
       <div class="icon-cross">
         <span class="icon-cross-line" />
         <span class="icon-cross-line" />
