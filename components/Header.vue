@@ -4,7 +4,7 @@
     <div class="search-header">
       <nuxt-link class="link-search search-open" to="/search/">
         <svg class="icon-svg icon-search-svg">
-          <use xlink:href="sprite.svg#icon-search" />
+          <use xlink:href="~/static/sprite.svg#icon-search" />
         </svg>
       </nuxt-link>
     </div>

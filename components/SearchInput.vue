@@ -2,7 +2,7 @@
   <div ref="search" class="search-header search-input-wrapper">
     <a class="link-search search-open">
       <svg class="icon-svg icon-search-svg">
-        <use xlink:href="sprite.svg#icon-search" />
+        <use xlink:href="~/static/sprite.svg#icon-search" />
       </svg>
     </a>
     <div class="search-input-contenteditable">
