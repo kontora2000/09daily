@@ -6,7 +6,7 @@
       </h1>
       <div class="post-meta">
         <div class="publication-date">
-          {{ post.date }}
+          {{ post.day }} {{ post.month }} {{ post.year }}
         </div>
         <div class="news-rubric-link-wrapper">
           <nuxt-link class="rubric-link link-underline" :to="post.category_link">
@@ -48,7 +48,7 @@
         <div class="longread-text-over-pic">
           <div class="post-meta">
             <div class="publication-date">
-              {{ post.date }}
+              {{ post.day }} {{ post.month }} {{ post.year }}
             </div>
             <div class="news-rubric-link-wrapper">
               <a class="rubric-link link-underline" href="#">Политика</a>
@@ -61,14 +61,19 @@
             </div>
           </div>
           <div class="longread-post-header-cont">
-            <span class="longread-post-header post-header">{{ post.title }}</span>
-            <span class="longread-post-subheader">{{ post.subtitle }}</span>
+            <span class="longread-post-header post-header">{{ post.post_title }}</span>
+            <span class="longread-post-subheader">{{ post.subheader }}</span>
           </div>
         </div>
       </div>
-      <div v-html="post.post_content" />
+      <p v-if="post.subtitle" class="longread-intro">
+        {{ post.subtitle }}
+      </p>
+      <div v-html="post.post_content" ref="content"/>
       <div v-if="post.author" class="longread-author-cont">
-        <nuxt-link class="longread-author-link link-underline" :to="'/search/?s=' + encodeURIComponent( JSON.stringify(['@'+ post.author.replace(' ','_')]))">Автор поста</nuxt-link>
+        <nuxt-link class="longread-author-link link-underline" :to="'/search/?s=' + encodeURIComponent( JSON.stringify(['@'+ post.author.replace(' ','_')]))">
+          {{ post.author }}
+        </nuxt-link>
       </div>
       <Tags :tags="post.tags" />
     </article>
@@ -99,6 +104,7 @@ export default {
     }
     try {
       const res = await $axios.get(request.endpoint)
+      console.log(res.data)
       if (res.data.day === false) {
         // eslint-disable-next-line no-throw-literal
         throw ({ statusCode: 404, message: 'Страница не найдена' })
@@ -113,6 +119,14 @@ export default {
   head () {
     return {
       title: this.post.post_title
+    }
+  },
+  mounted () {
+    if (this.$refs.content) {
+      const pars = this.$refs.content.querySelectorAll('p')
+      for (let i = 0; i < pars.length; i++) {
+        pars[i].className = 'longread-p'
+      }
     }
   }
 }
