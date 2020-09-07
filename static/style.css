@@ -384,6 +384,7 @@ a {
     background:rgba(0, 85, 255, 1);
     left: 50%;
     top: 50%;
+    transform: translate(-50%,-50%);
     z-index:1;
     padding:2rem;
   }
@@ -412,7 +413,6 @@ a {
   }
 
   .round-6 {
-    left:0 !important;
     animation-delay: 0s !important;
   }
 
@@ -1958,7 +1958,7 @@ footer .bottom-cont a:hover {
     }
 
     .attached-news-default-cover-cont {
-   
+
     }
 
     .attached-news-default-cover-img {
