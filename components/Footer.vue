@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer v-if="showFooter">
     <div class="social-subscribe-cont">
       <Socials />
       <SubscribeForm />
@@ -29,6 +29,17 @@ export default {
     Socials,
     SubscribeForm,
     NavBar
+  },
+  computed: {
+    showFooter: {
+      get () {
+        if (this.$route.name === 'search' || this.$route.name === 'search-s') { return false }
+        return true
+      },
+      set (value) {
+        this.showFooter = value
+      }
+    }
   }
 }
 </script>

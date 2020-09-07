@@ -1,6 +1,6 @@
 <template>
   <main class="search-wrapper">
-    <template v-if="post.length > 0">
+    <template v-if="posts.length > 0">
       <div class="main-grid">
         <div class="search-results-header-wrapper">
           <h2 class="search-results-header">
@@ -29,7 +29,6 @@ import NewsItem from '@/components/NewsItem'
 import LoadMore from '@/components/LoadMore'
 
 export default {
-  name: 'SearchPage',
   transition: 'fade',
   components: {
     NewsItem,
@@ -121,4 +120,3 @@ export default {
   }
 }
 </script>
-</template>

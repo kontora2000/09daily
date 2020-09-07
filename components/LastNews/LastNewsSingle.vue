@@ -4,20 +4,20 @@
       Последнее
     </h1>
     <Adv :number="1-0" type="last" />
-    <Item v-for="mypost in posts" :key="mypost.ID" :post="mypost" class="news-item-cont news-item" :number="0-1" />
+    <NewsItem v-for="mypost in posts" :key="mypost.ID" :post="mypost" />
   </div>
 </template>
 
 <script>
 import Adv from '@/components/Adv.vue'
 import urls from '@/assets/js/urls'
-import Item from '@/components/LastNews/Item'
+import NewsItem from '@/components/NewsItem'
 
 export default {
   name: 'LastNewsSingle',
   components: {
     Adv,
-    Item
+    NewsItem
   },
   async fetch () {
     const request = {
