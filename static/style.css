@@ -361,7 +361,9 @@ a {
 }
 
 .burger-icon-button {
-  color: var(--White100);
+    color: var(--White100);
+    margin: 0 auto;
+    width: 4.2rem;
 }
 
 .burger-overlay {
@@ -376,41 +378,49 @@ a {
 }
 
 .burger-icon {
-  height: 3.2rem;
-  cursor: pointer;
-  display: block;
-  transition: transform .175s ease-in-out;
-  will-change: transform;
-  position: relative;
-  left: calc(50% - 2rem);
+    height: 3.2rem;
+    cursor: pointer;
+    display: block;
+    margin-top: .4rem;
+    transition: transform .125s ease-in-out, margin .0675s ease-in-out;
+    will-change: transform;
+    position: relative;
+    left: calc(50% - 2rem);
+}
+
+.burger-icon.burger-icon-close {
+    margin-top: 1.2rem;
 }
 
 .burger-icon-line {
-  transition: all .175s ease-in-out,margin .175s ease-in-out;
-  height: 2.5px;
-  width: 4rem;
-  position: relative;
-  display: block;
+    transition: all .125s ease-in-out, margin .125s ease-in-out;
+    height: 2px;
+    width: 4.2rem;
+    position: relative;
+    display: block;
 }
 
+.burger-icon-line:first-child {
+    margin-bottom: .8rem;
+}
 
 .burger-icon-close .burger-icon-line:first-child {
-  transform: rotate(-45deg);
-  position: absolute;
+    margin-bottom: 0;
+    transform: rotate(-45deg);
+    position: absolute;
 }
 
 .burger-icon-close .burger-icon-line:last-child {
-  transform: rotate(45deg);
-  position: absolute;
-
+    transform: rotate(45deg);
+    position: absolute;
 }
 
 .menu-header-mobile-link {
-  margin-top:2.6rem;
-  font-size: 1.6rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-family: 'Inter var';
+    margin-top: 2.8rem;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: var(--font-default);
 }
 
 

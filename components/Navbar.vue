@@ -13,8 +13,8 @@
   <div v-else class="menu-header menu-header-mobile">
     <div class="burger-icon-button" @click.prevent="toggleBurger()">
       <span class="burger-icon" :class="{ 'burger-icon-close': isShowBurgerMenu }">
-        <span class="burger-icon-line" style="margin-top:1rem" />
-        <span class="burger-icon-line" style="margin-top:1rem" />
+        <span class="burger-icon-line" />
+        <span class="burger-icon-line" />
       </span>
     </div>
     <div v-show="isShowBurgerMenu" class="burger-overlay">
