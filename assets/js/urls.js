@@ -1,7 +1,7 @@
 export default {
   baseURL: 'https://09daily.ru/',
-  apiBaseURL: 'https://api.elbrus.press/',
-  restURL: 'https://api.elbrus.press/wp-json/elbruspress/v1',
+  apiBaseURL: 'https://09daily.ru/',
+  restURL: 'https://api.09daily.ru/wp-json/daily/v1',
   socials: {
     twitter: 'https://twitter.com/09daily.ru',
     telegram: 'https://teleg.run/09daily.ru',

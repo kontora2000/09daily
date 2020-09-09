@@ -18,10 +18,48 @@
           </div>
         </div>
       </div>
+      <div id="attached-news-old-society" class="attached-news-old-cont">
+        <div class="cont-header-rubric cont-header">
+          <a class="cont-header-rubric-link" href="#">Общество</a>
+        </div>
+        <div class="attached-news-old-carousel-cont">
+          <el-carousel :interval="4000" type="card" arrow="never" indicator-position="none">
+            <el-carousel-item v-for="item in 3" :key="item" :class="'attached-news-old-cover-cont'">
+              <a class="attached-news-old-wrapper" href="#">
+                <picture class="attached-news-old-cover-cont">
+                  <img class="attached-news-old-cover-img" src="img/news-covers/1.png">
+                  <div class="attached-news-old-cover-gradient" />
+                </picture>
+                <div class="attached-news-text-over-pic">
+                  <div class="news-item-meta">
+                    <div class="news-rubric-link-wrapper">Политика</div>
+                    <div class="publication-date">Вчера в 22:44</div>
+                  </div>
+                  <div class="news-item-header-cont">
+                    <span class="news-item-header">Депутат Госдумы от Ставрополья показал, как в него проник коронавирус</span><span class="news-item-subheader" />
+                  </div>
+                </div>
+              </a>
+            </el-carousel-item>
+          </el-carousel>
+          <div class="attached-news-old-nav">
+            <button type="button" class="attached-news-old-nav-button attached-news-old-nav-button-left">
+              <svg class="icon-svg icon-arrow-big-to-left">
+                <use xlink:href="sprite.svg#icon-arrow-big-to-left" />
+              </svg>
+            </button>
+            <button type="button" class="attached-news-old-nav-button attached-news-old-nav-button-right">
+              <svg class="icon-svg icon-arrow-big-to-right">
+                <use xlink:href="sprite.svg#icon-arrow-big-to-right" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
       <NewsItem v-for="post in simplePosts" :key="post.id" :post="post" />
     </div>
     <template v-if="!isLoadedOnce">
-      <LoadMore count="10" :total="allCount" />
+      <LoadMore :total="allCount + ''" />
     </template>
     <template v-else>
       <infinite-loading

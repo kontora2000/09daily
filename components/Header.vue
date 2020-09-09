@@ -1,13 +1,17 @@
 <template>
-  <header :class="headerClass">
-    <LogoHeader />
-    <div class="search-header">
-      <nuxt-link class="link-search search-open" to="/search/">
-        <svg class="icon-svg icon-search-svg">
-          <use xlink:href="~/static/sprite.svg#icon-search" />
-        </svg>
-      </nuxt-link>
-    </div>
+  <header :class="headerClass" :style="{ 'height': headerHeight }">
+    <transition name="fade">
+      <LogoHeader v-if="!isOpenBurger" />
+    </transition>
+    <transition name="fade">
+      <div v-if="!isOpenBurger" class="search-header">
+        <nuxt-link class="link-search search-open" to="/search/">
+          <svg class="icon-svg icon-search-svg">
+            <use xlink:href="~/static/sprite.svg#icon-search" />
+          </svg>
+        </nuxt-link>
+      </div>
+    </transition>
     <Navbar v-if="!isSearch" />
     <SearchInput v-if="isSearch" />
   </header>
@@ -27,7 +31,9 @@ export default {
   },
   data () {
     return {
-      searchString: ''
+      searchString: '',
+      isOpenBurger: false,
+      headerHeight: ''
     }
   },
   computed: {
@@ -50,7 +56,27 @@ export default {
       if (this.$route.name === 'search' || this.$route.name === 'search-s') { return true }
       return false
     }
+  },
+  mounted () {
+    this.$root.$on('openBurger', this.hideLogoAndSearch)
+    this.$root.$on('closeBurger', this.showLogoAndSearch)
+  },
+  methods: {
+    hideLogoAndSearch () {
+      this.isOpenBurger = true
+      this.headerHeight = '32rem'
+    },
+    showLogoAndSearch () {
+      this.isOpenBurger = false
+      this.headerHeight = '5.6rem'
+    }
   }
 
 }
 </script>
+
+<style scoped>
+ header {
+   transition: height 0.2s ease;
+ }
+</style>
