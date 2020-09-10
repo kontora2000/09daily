@@ -4,12 +4,12 @@
       <div class="main-grid">
         <div class="search-results-header-wrapper">
           <h2 class="search-results-header">
-            Нашлось {{ resultsCount }}
+            {{ resultsCount }}
           </h2>
         </div>
         <NewsItem v-for="post in posts" :key="post.ID" :post="post" />
       </div>
-      <LoadMore count="10" total="allCount" />
+      <LoadMore :total="allCount" />
     </template>
     <template v-else-if="isNoResults">
       <div class="main-grid">
@@ -58,14 +58,25 @@ export default {
     }
   },
   mounted () {
-    this.$root.$on('goSearch', (restString) => { this.searchRequest(restString) })
+    this.$root.$on('goSearch', (restString) => {
+      if (this.isLoading === false) {
+        this.isLoading = true
+        this.searchRequest(restString)
+      }
+    })
+    if (this.$route.name === 'search-s') {
+      if (this.$route.query.s !== '' && this.$route.query.s !== undefined) {
+        this.$root.$emit('parseURL', this.$route.query.s)
+      }
+    }
   },
   methods: {
     infiniteHandler ($state) {
       if (this.isLoading) { return }
+      if (this.isNeedToUpload === false) { return }
       this.isLoading = true
       const request = {
-        endpoint: `${urls.restURL}${this.searchString}&page=${this.page}`,
+        endpoint: `${urls.restURL}/search${this.restString}&page=${this.page}`,
         headers: urls.restHeaders
       }
       this.$axios.get(request.endpoint)
@@ -74,7 +85,7 @@ export default {
             this.page += 1
             this.posts.push(...res.data.posts)
             this.isNeedToUpload = res.data.allCount > res.data.posts.length
-            this.resultsCount = res.data.resultsCount
+            // this.resultsCount = res.data.resultsCount
             this.isLoading = false
             $state.loaded()
           } else {
@@ -92,12 +103,9 @@ export default {
         this.resultsCount = ''
         this.posts = []
         this.isLoading = false
-        if (this.$route.path !== '/search') { this.$router.replace({ path: '/search' }) }
         return
       }
       this.page = 1
-      if (this.isLoading === true) { return }
-      this.isLoading = true
       const request = {
         endpoint: `${urls.restURL}/search${restString}&page=${this.page}`,
         headers: urls.restHeaders
@@ -110,14 +118,13 @@ export default {
           this.resultsCount = res.data.resultsCount
           this.page += 1
           this.isLoading = false
-          if (this.$route.path !== '/search' + restString) { this.$router.replace({ path: '/search' + restString }) }
         } else {
           this.posts = false
           this.isNeedToUpload = false
           this.resultsCount = ''
           this.isLoading = false
-          if (this.$route.path !== '/search' + restString) { this.$router.replace({ path: '/search' + restString }) }
         }
+        this.restString = restString
         this.isLoading = false
       } catch (error) {
         console.log(error)

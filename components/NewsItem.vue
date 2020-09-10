@@ -1,6 +1,6 @@
 <template>
   <div class="news-item-cont news-item">
-    <nuxt-link class="news-item-link" :to="post.category_link + '/' + post.slug">
+    <nuxt-link class="news-item-link" :to="'/' + post.category_link + '/' + post.slug">
       <picture v-if="post.thumb" class="news-item-cover">
         <img class="news-item-cover-img" :src="post.thumb">
       </picture>
