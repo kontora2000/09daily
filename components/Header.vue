@@ -64,7 +64,7 @@ export default {
   methods: {
     hideLogoAndSearch () {
       this.isOpenBurger = true
-      this.headerHeight = '32rem'
+      this.headerHeight = '35rem'
     },
     showLogoAndSearch () {
       this.isOpenBurger = false

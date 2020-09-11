@@ -13,7 +13,14 @@
         <span class="link-to-news-letters">Все&nbsp;новости</span>
         <span class="link-to-news-arrow-gradient">
           <span class="link-to-news-arrow">→</span>
-          <span class="link-to-news-gradient"></span>
+          <span class="link-to-news-gradient">
+            <div class="round round-1 scale-in"></div>
+            <div class="round round-2 scale-in"></div>
+            <div class="round round-3 scale-in"></div>
+            <div class="round round-4 scale-in"></div>
+            <div class="round round-5 scale-in"></div>
+            <div class="round round-6 scale-in"></div>
+          </span>
         </span>
       </nuxt-link>
     </div>
