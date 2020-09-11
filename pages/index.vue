@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div id="attached-news-old-society" class="attached-news-old-cont">
+      <!-- <div id="attached-news-old-society" class="attached-news-old-cont">
         <div class="cont-header-rubric cont-header">
           <a class="cont-header-rubric-link" href="#">Общество</a>
         </div>
@@ -55,7 +55,8 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> -->
+      <CategoryAttached slug="culture" slug-title="Культура" />
       <NewsItem v-for="post in simplePosts" :key="post.id" :post="post" />
     </div>
     <template v-if="!isLoadedOnce">
@@ -79,6 +80,7 @@ import urls from 'assets/js/urls.js'
 
 import AttachedMainItem from '@/components/AttachedNews/AttachedMainItem'
 import AttachedDefaultItem from '@/components/AttachedNews/AttachedDefaultItem'
+import CategoryAttached from '@/components/AttachedNews/CategoryAttached'
 import NewsItem from '@/components/NewsItem'
 import LastNews from '@/components/LastNews/LastNews'
 import LoadMore from '@/components/LoadMore'
@@ -90,6 +92,7 @@ export default {
     LastNews,
     AttachedMainItem,
     AttachedDefaultItem,
+    CategoryAttached,
     NewsItem,
     LoadMore,
     Adv,
