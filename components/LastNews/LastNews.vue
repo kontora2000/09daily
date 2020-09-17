@@ -13,6 +13,17 @@
         <span class="link-to-news-letters">Все&nbsp;новости</span>
         <span class="link-to-news-arrow-gradient">
           <span class="link-to-news-arrow">→</span>
+<<<<<<< HEAD
+=======
+          <span class="link-to-news-gradient">
+            <div class="round round-1 scale-in"></div>
+            <div class="round round-2 scale-in"></div>
+            <div class="round round-3 scale-in"></div>
+            <div class="round round-4 scale-in"></div>
+            <div class="round round-5 scale-in"></div>
+            <div class="round round-6 scale-in"></div>
+          </span>
+>>>>>>> 249ef0c5e1f4e86837923e4e35ddf2939ae049a0
         </span>
         <div class="link-to-news-gradient">
           <div class="last-news-round round-1 scale-in-fast-lastnews" />
