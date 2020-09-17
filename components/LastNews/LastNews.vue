@@ -13,8 +13,14 @@
         <span class="link-to-news-letters">Все&nbsp;новости</span>
         <span class="link-to-news-arrow-gradient">
           <span class="link-to-news-arrow">→</span>
-          <span class="link-to-news-gradient"></span>
         </span>
+        <div class="link-to-news-gradient">
+          <div class="last-news-round round-1 scale-in-fast-lastnews" />
+          <div class="last-news-round round-2 scale-in-fast-lastnews" />
+          <div class="last-news-round round-3 scale-in-fast-lastnews" />
+          <div class="last-news-round round-4 scale-in-fast-lastnews" />
+          <div class="last-news-round round-5 scale-in-fast-lastnews" />
+        </div>
       </nuxt-link>
     </div>
   </div>
@@ -52,3 +58,20 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .last-news-round  {
+    position: absolute;
+    border-radius:50%;
+    background:rgba(0, 85, 255, 1);
+    z-index:1;
+    padding:1.5rem;
+  }
+
+  .link-to-news-gradient {
+    position: relative;
+    top: -3.2rem;
+    left: 80%;
+    z-index: -1;
+  }
+</style>

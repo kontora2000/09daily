@@ -6,9 +6,17 @@
       </nuxt-link>
     </div>
     <div class="attached-news-old-carousel-cont">
-      <div class="attached-news-old-carousel-wrapper" ref="wrapper">
-        <div v-for="(post, index) in posts" :key="post.id" class="attached-news-old-item" :class="{'active': currentActive === index }">
-          <nuxt-link class="attached-news-old-wrapper" :to="'/' + post.category_link + '/' + post.slug">
+      <div ref="wrapper" class="attached-news-old-carousel-wrapper" :style="{ 'transform': `translateX(${leftShift}vw)`}">
+        <div
+          v-for="(post, index) in posts"
+          :key="post.id"
+          class="attached-news-old-item"
+          :class="{'active': currentActive === index }"
+        >
+          <nuxt-link
+            class="attached-news-old-wrapper"
+            :to="'/' + post.category_link + '/' + post.slug"
+          >
             <picture v-if="post.thumb" class="attached-news-old-cover-cont">
               <img class="attached-news-old-cover-img" :src="post.thumb">
               <div class="attached-news-old-cover-gradient" />
@@ -24,19 +32,27 @@
               </div>
               <div class="news-item-header-cont">
                 <span class="news-item-header">{{ post.title }}</span>
-                <span v-if="post.subheader" class="news-item-subheader"> {{ post.subheader }}</span>
+                <span v-if="post.subheader" class="news-item-subheader">{{ post.subheader }}</span>
               </div>
             </div>
           </nuxt-link>
         </div>
       </div>
       <div class="attached-news-old-nav">
-        <button type="button" class="attached-news-old-nav-button attached-news-old-nav-button-left" @click.prevent="left()">
+        <button
+          type="button"
+          class="attached-news-old-nav-button attached-news-old-nav-button-left"
+          @click.prevent="left()"
+        >
           <svg class="icon-svg icon-arrow-big-to-left">
             <use xlink:href="sprite.svg#icon-arrow-big-to-left" />
           </svg>
         </button>
-        <button type="button" class="attached-news-old-nav-button attached-news-old-nav-button-right" @click.prevent="right()">
+        <button
+          type="button"
+          class="attached-news-old-nav-button attached-news-old-nav-button-right"
+          @click.prevent="right()"
+        >
           <svg class="icon-svg icon-arrow-big-to-right">
             <use xlink:href="sprite.svg#icon-arrow-big-to-right" />
           </svg>
@@ -47,6 +63,7 @@
 </template>
 
 <script>
+import gsap from 'gsap'
 import urls from '@/assets/js/urls'
 
 export default {
@@ -62,31 +79,51 @@ export default {
     }
   },
   async fetch () {
-    const res = await this.$axios.get(urls.restURL + `/category_attached/${this.slug}/1`)
+    const res = await this.$axios.get(
+      urls.restURL + `/category_attached/${this.slug}/1`
+    )
     this.posts = res.data.posts
+    this.leftShift = this.posts.length * 33
+    this.posts.push(...this.posts)
+    this.posts.push(...this.posts)
+    this.posts.pop(...this.posts)
+    this.posts.pop(...this.posts)
+    this.currentActive = this.posts.length * 2 + 1
     this.currentPost = res.data.posts[0]
+    this.postCount = res.data.posts.length
   },
   data () {
     return {
       posts: [],
       currentPost: null,
       currentActive: 1,
+      currentPos: 1,
+      postCount: 0,
+      leftShift: 0
     }
   },
   methods: {
     left () {
       if (this.currentActive === 0) {
-        this.currentActive = (this.posts.length - 1)
-        gsap.to(this.wrapper, { x: '-=150', duration: 0.5 })
+        this.currentActive = this.posts.length - 2
+        gsap.to(this.$refs.wrapper, { x: '+=33vw', duration: 0.3 })
       } else {
         this.currentActive = this.currentActive - 1
+        gsap.to(this.$refs.wrapper, { x: '+=33vw', duration: 0.3 })
       }
     },
     right () {
-      if (this.currentActive === (this.posts.length - 1)) {
-        this.currentActive = 0
+      if (this.currentActive >= (this.postCount - 2)) {
+        // const ind = (this.currentPos - this.postCount) + 2
+        // this.posts.push(this.posts[ind])
+        this.currentActive = this.currentActive + 1
+        this.currentPos = 0
+        gsap.to(this.$refs.wrapper, { x: '-=33vw', duration: 0.3 })
       } else {
         this.currentActive = this.currentActive + 1
+        this.currentPos = this.currentPos + 1
+        console.log(this.postsCount)
+        gsap.to(this.$refs.wrapper, { x: '-=33vw', duration: 0.3 })
       }
     }
   }
@@ -94,18 +131,18 @@ export default {
 </script>
 
 <style scoped>
-  .attached-news-old-carousel-wrapper {
-    position: relative;
-    width: auto;
-    display: flex;
-  }
+.attached-news-old-carousel-wrapper {
+  position: relative;
+  width: auto;
+  display: flex;
+}
 
-  .attached-news-old-item {
-    min-width: 33vw;
-  }
+.attached-news-old-item {
+  min-width: 33vw;
+}
 
-  .attached-news-old-item a {
-    width: 100%;
-    height: 100%;
-  }
+.attached-news-old-item a {
+  width: 100%;
+  height: 100%;
+}
 </style>

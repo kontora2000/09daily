@@ -128,6 +128,23 @@ export default {
   },
   mounted () {
     this.$root.$on('loadmore', this.load)
+
+    const images = document.querySelectorAll('.gallery-pic-wrapper')
+    if (this.$store.getters['header/isMobile'] === false) {
+      for (let i = 0; i < images.length; i++) {
+        images[i].addEventListener('click', () => {
+          if (this.$store.getters['header/isMobile'] === true) { return }
+          if (!this.isLightboxOpened) {
+            const gallerObj = {
+              images: images[i].parentNode.querySelectorAll('.gallery-pic-wrapper'),
+              currentIndex: i
+            }
+            this.$root.$emit('openLightBox', gallerObj)
+            this.isLightboxOpened = true
+          }
+        })
+      }
+    }
   },
   methods: {
     async load ($state) {

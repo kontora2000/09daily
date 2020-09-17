@@ -16,6 +16,7 @@
     "@nuxtjs/axios": "^5.12.1",
     "@nuxtjs/device": "^1.2.7",
     "element-ui": "^2.13.2",
+    "gsap": "^3.5.1",
     "nuxt": "^2.0.0",
     "vue-infinite-loading": "^2.4.5"
   },

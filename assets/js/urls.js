@@ -1,5 +1,5 @@
 export default {
-  baseURL: 'http://localhost:3000/',
+  baseURL: 'https://09daily.ru/',
   apiBaseURL: 'https://09daily.ru/',
   restURL: 'https://api.09daily.ru/wp-json/daily/v1',
   socials: {

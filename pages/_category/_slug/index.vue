@@ -77,6 +77,7 @@
       </div>
       <Tags :tags="post.tags" />
     </article>
+    <LightBox />
     <LastNewsSingle />
     <LoadMore count="10" total="656" />
   </main>
@@ -87,6 +88,7 @@ import urls from '@/assets/js/urls'
 import LastNewsSingle from '@/components/LastNews/LastNewsSingle'
 import LoadMore from '@/components/LoadMore'
 import Tags from '@/components/Tags'
+import LightBox from '@/components/LightBox'
 
 export default {
   transition: {
@@ -95,6 +97,7 @@ export default {
   components: {
     LastNewsSingle,
     Tags,
+    LightBox,
     LoadMore
   },
   async asyncData ({ $axios, params, error }) {

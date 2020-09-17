@@ -73,6 +73,7 @@ export default {
     }
   },
   mounted () {
+    this.$refs.searchInput.focus()
     this.$root.$on('deleteBlock', (index) => { this.deleteBlock(index) })
     this.$root.$on('parseURL', (url) => { this.parseURL(url) })
     window.setTimeout(() => {
