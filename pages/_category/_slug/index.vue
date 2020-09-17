@@ -69,7 +69,7 @@
       <p v-if="post.subtitle" class="longread-intro">
         {{ post.subtitle }}
       </p>
-      <div v-html="post.post_content" ref="content"/>
+      <div ref="content" v-html="post.post_content" />
       <div v-if="post.author" class="longread-author-cont">
         <nuxt-link class="longread-author-link link-underline" :to="'/search/?s=' + encodeURIComponent( JSON.stringify(['@'+ post.author.replace(' ','_')]))">
           {{ post.author }}
@@ -77,7 +77,7 @@
       </div>
       <Tags :tags="post.tags" />
     </article>
-    <LightBox />
+    <LightBox v-show="isLightboxOpened" />
     <LastNewsSingle />
     <LoadMore count="10" total="656" />
   </main>
@@ -119,9 +119,9 @@ export default {
       error(e)
     }
   },
-  head () {
+  data () {
     return {
-      title: this.post.post_title
+      isLightboxOpened: false
     }
   },
   mounted () {
@@ -130,6 +130,28 @@ export default {
       for (let i = 0; i < pars.length; i++) {
         pars[i].className = 'longread-p'
       }
+    }
+    const images = document.querySelectorAll('.gallery-pic-wrapper')
+    if (this.$device.isMobile === false) {
+      for (let i = 0; i < images.length; i++) {
+        images[i].addEventListener('click', () => {
+          if (this.$device.isMobile === true) { return }
+          if (!this.isLightboxOpened) {
+            const gallerObj = {
+              images: images[i].parentNode.querySelectorAll('.gallery-pic-wrapper'),
+              currentIndex: i
+            }
+            this.$root.$emit('openLightBox', gallerObj)
+            this.isLightboxOpened = true
+          }
+        })
+      }
+    }
+    this.$root.$on('closeLightBox', () => { this.isLightboxOpened = false })
+  },
+  head () {
+    return {
+      title: this.post.post_title
     }
   }
 }
