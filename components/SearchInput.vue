@@ -19,13 +19,13 @@
       </div>
       <input
         id="search-input"
+        ref="searchInput"
         v-model="searchString"
         type="text"
-        placeholder="Поиск"
         class="search-input"
-        ref="searchInput"
+        :style="{ 'padding-left': paddingLeft }"
+        :placeholder="placeholder"
         @keyup.enter="goSearch()"
-        @keyup.delete="deleteBlock(blocks.length - 1)"
       >
     </div>
     <a v-show="isShowCloseButton" class="search-close" @click.prevent="close">
@@ -52,7 +52,9 @@ export default {
       isAnimate: false,
       searchString: '',
       blocks: [],
-      paddingLeft: '6rem'
+      paddingLeft: '6rem',
+      isLoading: false,
+      placeholder: 'Поиск'
     }
   },
   computed: {
@@ -61,15 +63,6 @@ export default {
     },
     isShowCloseButton () {
       return (this.$route.name === 'search' || this.$route.name === 'search-s')
-    },
-    width: {
-      get () {
-        const minus = this.$store.getters['header/isMobile'] ? '1.6rem' : '4.2rem'
-        return (this.$route.name === 'search' || this.$route.name === 'search-s') ? `calc(100% - ${minus})` : '4.2rem'
-      },
-      set (newValue) {
-        return newValue
-      }
     }
   },
   mounted () {
@@ -77,13 +70,16 @@ export default {
     this.$root.$on('deleteBlock', (index) => { this.deleteBlock(index) })
     this.$root.$on('parseURL', (url) => { this.parseURL(url) })
     window.setTimeout(() => {
-      if (this.blocks.length > 0) { console.log(this.$refs.wrapper.offsetWidth); this.paddingLeft = this.$refs.wrapper.offsetWidth + 10 + 'px' }
+      if (this.blocks.length > 0) {
+        console.log(this.$refs.wrapper.offsetWidth)
+        this.paddingLeft = this.$refs.wrapper.offsetWidth + 10 + 'px'
+        this.placeholder = ''
+      }
     }, 100)
   },
   methods: {
     open () {
       this.$root.$emit('openSearch')
-      this.width = this.$store.getters['header/isMobile'] ? 'calc(100% - 1.6rem)' : 'calc(100% - 4.2rem)'
       // gsap.set(this, { isShowCloseButton: true, delay: 0.5 })
       this.$refs.searchInput.focus()
       this.paddingLeft = '6rem'
@@ -108,7 +104,13 @@ export default {
       this.blocks.push(...newBlocks)
       this.blocks = Array.from(new Set(this.blocks))
       this.$nextTick(() => {
-        if (this.blocks.length > 0) { this.paddingLeft = this.$refs.wrapper.offsetWidth + 10 + 'px' } else { this.paddingLeft = '6rem' }
+        if (this.blocks.length > 0) {
+          this.paddingLeft = this.$refs.wrapper.offsetWidth + 10 + 'px'
+          this.placeholder = ''
+        } else {
+          this.paddingLeft = '6rem'
+          this.placeholder = 'Поиск'
+        }
       })
       this.searchString = ''
       const restString = searchParser.blocksToRestString(this.blocks)
@@ -119,6 +121,7 @@ export default {
     deleteBlock (ind) {
       if (ind === 0) {
         this.paddingLeft = '6rem'
+        this.placeholder = 'Поиск'
         this.$root.$emit('goSearch', '')
         this.$refs.searchInput.focus()
       }

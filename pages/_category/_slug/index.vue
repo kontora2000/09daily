@@ -6,7 +6,7 @@
       </h1>
       <div class="post-meta">
         <div class="publication-date">
-          {{ post.day }} {{ post.month }} {{ post.year }}
+          {{ post.date }}
         </div>
         <div class="news-rubric-link-wrapper">
           <nuxt-link class="rubric-link link-underline" :to="post.category_link">

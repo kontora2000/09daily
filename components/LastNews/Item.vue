@@ -39,7 +39,7 @@ export default {
   computed: {
     isWhite () {
       if (this.number < 0) { return false }
-      if (this.number > 3) {
+      if (this.number > 4) {
         return false
       } else {
         return true
