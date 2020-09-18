@@ -10,13 +10,13 @@
           </div>
         </div>
         <div class="gallery-lightbox-left" @click="left">
-          <svg class="icon-arrow-svg icon-arrow-left-svg"><use xlink:href="/images/sprite.svg#icon-arrow-left"></use></svg>
+          <svg class="icon-arrow-svg icon-arrow-left-svg"><use xlink:href="~/static/sprite.svg#icon-arrow-big-to-left"></use></svg>
         </div>
         <div class="gallery-lightbox-right" @click="right">
-          <svg class="icon-arrow-svg icon-arrow-right-svg"><use xlink:href="/images/sprite.svg#icon-arrow-right"></use></svg>
+          <svg class="icon-arrow-svg icon-arrow-right-svg"><use xlink:href="~/static/sprite.svg#icon-arrow-big-to-right"></use></svg>
         </div>
         <div class="gallery-lightbox-close" @click="close">
-          <svg class="icon-close-svg"><use xlink:href="/images/sprite.svg#icon-close"></use></svg>
+          <svg class="icon-svg icon-close-svg"><use xlink:href="~/static/sprite.svg#icon-close"></use></svg>
         </div>
       </div>
     </transition-group>
