@@ -4,7 +4,15 @@
       <div class="main-grid">
         <div class="search-results-header-wrapper">
           <h2 class="search-results-header">
-            {{ resultsCount }}
+            <span style="z-index:2">{{ resultsCount }}</span>
+            <div class="search-results-round">
+              <div class="search-round round-1 scale-in" />
+              <div class="search-round round-2 scale-in" />
+              <div class="search-round round-3 scale-in" />
+              <div class="search-round round-4 scale-in" />
+              <div class="search-round round-5 scale-in" />
+              <div class="search-round round-6 scale-in" />
+            </div>
           </h2>
         </div>
         <NewsItem v-for="post in posts" :key="post.ID" :post="post" />
@@ -133,3 +141,23 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+ .search-results-round {
+   position: relative;
+   left: calc(100% - 1rem);
+   width: 2rem;
+   top:-2rem;
+   height: auto;
+ }
+
+ .search-round {
+   position: absolute;
+    border-radius: 50%;
+    background: rgba(0, 85, 255, 1);
+    z-index: 1;
+    padding: 2.5rem;
+    transform-origin: 80% 50%;
+    transform: translate(-50% -50%);
+ }
+</style>

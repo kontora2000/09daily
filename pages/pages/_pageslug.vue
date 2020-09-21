@@ -15,6 +15,9 @@
 import urls from '@/assets/js/urls'
 
 export default {
+  transition: {
+    name: 'fade'
+  },
   async asyncData ({ $axios, params, error }) {
     try {
       const res = await $axios.get(urls.apiBaseURL + 'wp-json/wp/v2/pages/?slug=' + params.pageslug, urls.restHeaders)

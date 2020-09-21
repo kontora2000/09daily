@@ -12,9 +12,9 @@
       </nuxt-link>
     </div>
     <div class="site-menu-cont">
-      <nuxt-link class="menu-footer-link" to="page/redaction">Редакция</nuxt-link>
-      <nuxt-link class="menu-footer-link" to="page/contacts">Контакты</nuxt-link>
-      <nuxt-link class="menu-footer-link" to="page/adv">Реклама</nuxt-link>
+      <nuxt-link class="menu-footer-link" to="/pages/redaction">Редакция</nuxt-link>
+      <nuxt-link class="menu-footer-link" to="/pages/contacts">Контакты</nuxt-link>
+      <nuxt-link class="menu-footer-link" to="/pages/adv">Реклама</nuxt-link>
     </div>
   </div>
 </template>

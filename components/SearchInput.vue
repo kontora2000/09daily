@@ -52,7 +52,7 @@ export default {
       isAnimate: false,
       searchString: '',
       blocks: [],
-      paddingLeft: '6rem',
+      paddingLeft: '7.2rem',
       isLoading: false,
       placeholder: 'Поиск'
     }
@@ -82,7 +82,7 @@ export default {
       this.$root.$emit('openSearch')
       // gsap.set(this, { isShowCloseButton: true, delay: 0.5 })
       this.$refs.searchInput.focus()
-      this.paddingLeft = '6rem'
+      this.paddingLeft = '7.2rem'
     },
     close () {
       this.searchString = ''
@@ -96,6 +96,7 @@ export default {
     goSearch () {
       if (this.searchString.trim() === '') {
         this.searchString = ''
+        window.history.replaceState({ }, '', urls.baseURL + 'search/')
         return
       }
       const newWords = searchParser.stringToWords(this.searchString)
@@ -108,7 +109,7 @@ export default {
           this.paddingLeft = this.$refs.wrapper.offsetWidth + 10 + 'px'
           this.placeholder = ''
         } else {
-          this.paddingLeft = '6rem'
+          this.paddingLeft = '7.2rem'
           this.placeholder = 'Поиск'
         }
       })
@@ -120,12 +121,13 @@ export default {
     },
     deleteBlock (ind) {
       if (ind === 0) {
-        this.paddingLeft = '6rem'
+        this.paddingLeft = '7.2rem'
         this.placeholder = 'Поиск'
         this.$root.$emit('goSearch', '')
         this.$refs.searchInput.focus()
       }
       this.blocks.splice(ind, 1)
+      this.$refs.searchInput.focus()
       this.goSearch()
     },
     parseURL (url) {
