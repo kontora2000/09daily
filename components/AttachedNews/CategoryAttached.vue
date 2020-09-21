@@ -6,7 +6,7 @@
       </nuxt-link>
     </div>
     <div class="attached-news-old-carousel-cont">
-      <div ref="wrapper" class="attached-news-old-carousel-wrapper" :style="{ 'transform': `translateX(-${leftShift}vw)`}">
+      <div ref="wrapper" class="attached-news-old-carousel-wrapper" :style="{ 'transform': `translateX(calc(-${leftShift}vw - 192px))`}">
         <div
           v-for="(post, index) in posts"
           :key="post.id"
@@ -83,8 +83,8 @@ export default {
       urls.restURL + `/category_attached/${this.slug}/1`
     )
     this.posts = res.data.posts
-    this.leftShift = this.posts.length * 5 * 33
-    this.currentActive = this.posts.length * 5 - 2
+    this.leftShift = this.posts.length * 5 * 33.3
+    this.currentActive = this.posts.length * 5 - 1
     for (let i = 0; i < 5; i++) {
       this.posts.pop(...this.posts)
       this.posts.push(...this.posts)
@@ -101,16 +101,21 @@ export default {
       postCount: 0,
       leftShift: 0,
       isAnimated: false,
-      animationDuration: 0.25
+      animationDuration: 0.25,
+      elems: []
     }
+  },
+  mounted () {
+    this.elems = this.$refs.wrapper.querySelectorAll('.attached-news-old-item')
   },
   methods: {
     left () {
       if (this.isAnimated === false) {
         this.isAnimated = true
         if (this.currentActive === 1) {
+          const w = this.elems[this.currentActive].offsetWidth
           gsap.to(this.$refs.wrapper, {
-            x: '+=33vw',
+            x: `+=${w + 32}px`,
             duration: this.animationDuration,
             onComplete: () => {
               this.isAnimated = false
@@ -119,9 +124,9 @@ export default {
           })
           this.currentPost = this.posts[this.currentActive]
         } else {
-          this.currentActive = this.currentActive - 1
+          const w = this.elems[this.currentActive].offsetWidth
           gsap.to(this.$refs.wrapper, {
-            left: '+=33vw',
+            x: `+=${w + 32}px`,
             duration: this.animationDuration,
             onComplete: () => {
               this.isAnimated = false
@@ -135,9 +140,10 @@ export default {
       if (this.isAnimated === false) {
         this.isAnimated = true
         if (this.currentActive === (this.posts.length - 2)) {
+          const w = this.elems[this.currentActive].offsetWidth
           this.posts.push(...this.posts)
           gsap.to(this.$refs.wrapper, {
-            left: '-=33vw',
+            x: `-=${w + 32}px`,
             duration: this.animationDuration,
             onComplete: () => {
               this.isAnimated = false
@@ -145,8 +151,9 @@ export default {
             }
           })
         } else {
+          const w = this.elems[this.currentActive].offsetWidth
           gsap.to(this.$refs.wrapper, {
-            left: '-=33vw',
+            x: `-=${w + 32}px`,
             duration: this.animationDuration,
             onComplete: () => {
               this.isAnimated = false
@@ -168,7 +175,7 @@ export default {
 }
 
 .attached-news-old-item {
-  min-width: 33vw;
+  min-width: 33.3vw;
 }
 
 .attached-news-old-item a {

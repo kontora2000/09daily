@@ -1215,7 +1215,7 @@ header {
     opacity: .32;
     overflow: hidden;
     transition: opacity .25s ease-in-out;
-    min-width: 72rem !important;
+    /* min-width: 72rem !important; */
     height: 44rem;
 }
 
@@ -2404,7 +2404,7 @@ footer .bottom-cont a:hover {
         width: 84vw !important;
         min-width: 84vw !important;
     }
-    
+
     .attached-news-old-cover-img {
         height: 100%;
         object-fit: cover;
