@@ -152,7 +152,7 @@ export default {
       if (this.isPageLoaded === false) { return }
       if (this.nothingToLoad === true) { return }
       this.isLoading = true
-      window.setTimeout(async () => {
+      window.setTimeout(async ($state) => {
         const res = await this.$axios.get(`${urls.restURL}/posts/${this.page}`)
         this.isLoading = false
         if (res.data.posts.length > 0) {

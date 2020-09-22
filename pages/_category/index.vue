@@ -5,16 +5,15 @@
       <AdvCat :number="2" />
       <CatNewsItem v-for="post in posts" :key="post.id" :post="post" :category="categoryName" />
     </div>
-    <LoadMore v-if="isNeedToUpload && !isLoadedOnce" :count="uploadCount" :total="total" />
+    <LoadMore v-if="isNeedToUpload && !isLoadedOnce && !isLoading" :count="uploadCount" :total="total" />
     <infinite-loading
-      v-if="isLoadedOnce"
+      v-if="isLoadedOnce && isNeedToUpload"
       @infinite="upload"
     >
-      <div slot="spinner">
-        <LoadIndicator />
-      </div>
+      <div slot="spinner" />
       <div slot="no-more" />
     </infinite-loading>
+    <LoadIndicator v-if="isLoading && isNeedToUpload" />
   </main>
 </template>
 
@@ -67,14 +66,24 @@ export default {
     this.$root.$on('loadmore', this.upload)
   },
   methods: {
-    async upload ($state) {
-      const res = await this.$axios.get(`${urls.restURL}/category/${this.$route.params.category}/${this.page}`)
-      if (res.data.posts.length > 0) {
-        this.posts.push(...res.data.posts)
-        this.page += 1
-        this.isLoadedOnce = true
-        if ($state) { $state.loaded = true }
-      } else if ($state) { $state.complete = true }
+    upload ($state) {
+      if (this.isLoading) { return }
+      if (this.isNeedToUpload === false) { return }
+      this.isLoading = true
+      window.setTimeout(async ($state) => {
+        const res = await this.$axios.get(`${urls.restURL}/category/${this.$route.params.category}/${this.page}`)
+        this.isLoading = false
+        if (res.data.posts.length > 0) {
+          this.posts.push(...res.data.posts)
+          this.page += 1
+          this.isLoadedOnce = true
+          if ($state) { $state.loaded = true }
+        } else {
+          if ($state) { $state.complete = true }
+          this.isLoading = false
+          this.isNeedToUpload = false
+        }
+      }, 1000)
     }
   },
   head () {

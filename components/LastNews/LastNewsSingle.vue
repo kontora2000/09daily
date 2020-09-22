@@ -50,6 +50,7 @@ export default {
       if (res.data) {
         if (res.data.posts.length > 0) {
           this.posts.push(...res.data.posts)
+          this.$root.emit('loadedlastsingle')
         }
       }
     }
