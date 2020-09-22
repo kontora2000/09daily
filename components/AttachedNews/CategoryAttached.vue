@@ -6,7 +6,7 @@
       </nuxt-link>
     </div>
     <div class="attached-news-old-carousel-cont">
-      <div ref="wrapper" class="attached-news-old-carousel-wrapper" :style="{ 'transform': `translateX(calc(-${leftShift}vw - 192px))`}">
+      <div ref="wrapper" class="attached-news-old-carousel-wrapper">
         <div
           v-for="(post, index) in posts"
           :key="post.id"
@@ -23,11 +23,8 @@
             </picture>
             <div class="attached-news-text-over-pic">
               <div class="news-item-meta">
-                <div class="news-rubric-link-wrapper">
-                  {{ post.category }}
-                </div>
                 <div class="publication-date">
-                  {{ post.day }} {{ post.month }} {{ post.year }}
+                  {{ post.date }}
                 </div>
               </div>
               <div class="news-item-header-cont">
@@ -83,12 +80,12 @@ export default {
       urls.restURL + `/category_attached/${this.slug}/1`
     )
     this.posts = res.data.posts
-    this.leftShift = this.posts.length * 5 * 33.3
-    this.currentActive = this.posts.length * 5 - 1
-    for (let i = 0; i < 5; i++) {
-      this.posts.pop(...this.posts)
-      this.posts.push(...this.posts)
-    }
+    // this.leftShift = parseFloat(this.posts.length * 6 * 33.30)
+    // this.currentActive = this.posts.length * 5 - 1
+    // for (let i = 0; i < 5; i++) {
+    //   this.posts.pop(...this.posts)
+    //   this.posts.push(...this.posts)
+    // }
     this.currentPost = res.data.posts[0]
     this.postCount = res.data.posts.length
   },
@@ -114,16 +111,20 @@ export default {
         this.isAnimated = true
         if (this.currentActive === 1) {
           const w = this.elems[this.currentActive].offsetWidth
-          gsap.to(this.$refs.wrapper, {
-            x: `+=${w + 32}px`,
-            duration: this.animationDuration,
-            onComplete: () => {
-              this.isAnimated = false
-              this.currentActive = this.currentActive - 1
-            }
+          this.$nextTick(() => {
+            gsap.to(this.$refs.wrapper, {
+              x: `+=${w + 32}px`,
+              duration: this.animationDuration,
+              onComplete: () => {
+                this.isAnimated = false
+                this.currentActive = this.posts.length - 1
+                this.elems = this.$refs.wrapper.querySelectorAll('.attached-news-old-item')
+              }
+            })
           })
           this.currentPost = this.posts[this.currentActive]
         } else {
+          this.isAnimated = true
           const w = this.elems[this.currentActive].offsetWidth
           gsap.to(this.$refs.wrapper, {
             x: `+=${w + 32}px`,
@@ -148,9 +149,11 @@ export default {
             onComplete: () => {
               this.isAnimated = false
               this.currentActive = this.currentActive + 1
+              this.elems = this.$refs.wrapper.querySelectorAll('.attached-news-old-item')
             }
           })
         } else {
+          this.isAnimated = true
           const w = this.elems[this.currentActive].offsetWidth
           gsap.to(this.$refs.wrapper, {
             x: `-=${w + 32}px`,

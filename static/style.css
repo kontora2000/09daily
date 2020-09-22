@@ -1129,6 +1129,10 @@ header {
     height: auto;
 }
 
+.attached-news-old-cover-img {
+  height: 100% !important;
+}
+
 .attached-news-default-cover-gradient,
 .attached-news-old-cover-gradient {
     background: radial-gradient(100% 100% at 49.24% 0%, rgba(0, 0, 0, 0) 0.88%, rgba(0, 0, 0, 0.45) 51.77%, rgba(0, 0, 0, 0.8) 72.73%, rgba(0, 0, 0, 0.88) 81.96%);

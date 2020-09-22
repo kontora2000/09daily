@@ -33,7 +33,8 @@
           </div>
         </div>
         <div class="news-item-header-cont">
-          <span class="news-item-header">{{ post.title }}</span><span class="news-item-subheader">Эксперты о ситуации на рынке труда Северного Кавказа</span>
+          <span class="news-item-header">{{ post.title }}</span>
+          <span v-if="post.subheader" class="news-item-subheader">Эксперты о ситуации на рынке труда Северного Кавказа</span>
         </div>
       </div>
     </nuxt-link>

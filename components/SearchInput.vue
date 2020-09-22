@@ -125,6 +125,7 @@ export default {
         this.placeholder = 'Поиск'
         this.$root.$emit('goSearch', '')
         this.$refs.searchInput.focus()
+        return
       }
       this.blocks.splice(ind, 1)
       this.$refs.searchInput.focus()
