@@ -5,14 +5,15 @@
       <AdvCat :number="2" />
       <CatNewsItem v-for="post in posts" :key="post.id" :post="post" :category="categoryName" />
     </div>
-    <LoadMore v-if="isNeedToUpload && !isLoadedOnce" count="10" :total="allCount" />
+    <LoadMore v-if="isNeedToUpload && !isLoadedOnce" :count="uploadCount" :total="total" />
     <infinite-loading
       v-if="isLoadedOnce"
-      @infinite="load"
+      @infinite="upload"
     >
       <div slot="spinner">
         <LoadIndicator />
       </div>
+      <div slot="no-more" />
     </infinite-loading>
   </main>
 </template>
@@ -46,7 +47,9 @@ export default {
         categoryID: res.data.posts[0].category_id,
         categoryName: res.data.categoryName,
         categoryDescription: res.data.categoryDescr,
-        allCount: res.data.allCount
+        allCount: res.data.allCount,
+        total: `${res.data.allCount - res.data.posts.length}`,
+        uploadCount: ((res.data.allCount - 12) > 12) ? '12' : (res.data.allCount - res.data.posts.length) + ''
       }
     } catch (e) {
       error(e)
@@ -69,6 +72,7 @@ export default {
       if (res.data.posts.length > 0) {
         this.posts.push(...res.data.posts)
         this.page += 1
+        this.isLoadedOnce = true
         if ($state) { $state.loaded = true }
       } else if ($state) { $state.complete = true }
     }

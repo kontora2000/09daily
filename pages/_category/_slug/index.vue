@@ -79,7 +79,7 @@
     </article>
     <LightBox v-show="isLightboxOpened" />
     <LastNewsSingle />
-    <LoadMore count="10" total="656" />
+    <LoadMore v-if="!isLoadedOnce" count="10" />
   </main>
 </template>
 

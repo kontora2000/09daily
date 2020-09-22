@@ -11,10 +11,10 @@
         v-bind="options"
       >
         <div
-          v-for="(post, index) in posts"
+          v-for="post in posts"
           :key="post.id"
           class="attached-news-old-item"
-          >
+        >
           <nuxt-link
             class="attached-news-old-wrapper"
             :to="'/' + post.category_link + '/' + post.slug"
@@ -117,7 +117,6 @@
 </template>
 
 <script>
-import gsap from 'gsap'
 import urls from '@/assets/js/urls'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
@@ -164,7 +163,7 @@ export default {
         dots: false,
         centerMode: true,
         slidesToShow: 1,
-        centerPadding: '25%'
+        centerPadding: '10%'
       }
     }
   },
@@ -243,10 +242,6 @@ export default {
 
 <style scoped>
 
-.attached-news-old-item {
-  margin-left:3.2rem ;
-}
-
 .attached-news-old-item a {
   width: 100%;
   height: 100%;
@@ -254,10 +249,22 @@ export default {
 
 .attached-news-old-nav {
   position: relative;
-    width: 99%;
-    top: -26rem;
+  width: 99%;
+  top: -30rem;
+  z-index: 3;
+}
 
-    z-index: 3;
+.attached-news-old-cover-cont img {
+  width: calc(100% - 3.2rem);
+}
+
+.attached-news-text-over-pic {
+  text-align: center;
+        width: calc(100% - 3.2rem);
+
+    position: relative;
+    bottom: 10rem;
+    z-index: 1;
 }
 
 .slick-current .attached-news-old-item  {

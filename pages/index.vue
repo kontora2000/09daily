@@ -59,19 +59,19 @@
       <CategoryAttached slug="culture" slug-title="Культура" />
       <NewsItem v-for="post in simplePosts" :key="post.id" :post="post" />
     </div>
-    <template v-if="!isLoadedOnce">
+    <template v-if="!isLoadedOnce && !isLoading">
       <LoadMore :total="allCount + ''" />
     </template>
-    <template v-else>
+    <template v-if="isLoadedOnce">
       <infinite-loading
         v-if="isLoadedOnce"
         @infinite="load"
       >
-        <div slot="spinner">
-          <LoadIndicator />
-        </div>
+        <div slot="spinner" />
+        <div slot="no-more" />
       </infinite-loading>
     </template>
+    <LoadIndicator v-if="isLoading && !nothingToLoad" />
   </main>
 </template>
 
@@ -123,12 +123,12 @@ export default {
     return {
       page: 2,
       isLoadedOnce: false,
-      isLoading: false
+      isLoading: false,
+      nothingToLoad: false
     }
   },
   mounted () {
     this.$root.$on('loadmore', this.load)
-
     const images = document.querySelectorAll('.gallery-pic-wrapper')
     if (this.$store.getters['header/isMobile'] === false) {
       for (let i = 0; i < images.length; i++) {
@@ -147,16 +147,21 @@ export default {
     }
   },
   methods: {
-    async load ($state) {
-      if (this.isLoading) { return }
+    load ($state) {
+      if (this.isLoading === true) { return }
       if (this.isPageLoaded === false) { return }
-      const res = await this.$axios.get(`${urls.restURL}/posts/${this.page}`)
-      if (res.data.posts.length > 0) {
-        this.simplePosts.push(...res.data.posts)
-        this.page = this.page + 1
-        this.isLoadedOnce = true
-        if ($state) { $state.loaded() }
-      } else if ($state) { $state.complete() }
+      if (this.nothingToLoad === true) { return }
+      this.isLoading = true
+      window.setTimeout(async () => {
+        const res = await this.$axios.get(`${urls.restURL}/posts/${this.page}`)
+        this.isLoading = false
+        if (res.data.posts.length > 0) {
+          this.simplePosts.push(...res.data.posts)
+          this.page = this.page + 1
+          this.isLoadedOnce = true
+          if ($state) { $state.loaded() }
+        } else if ($state) { $state.complete(); this.nothingToLoad = true; this.isLoading = false }
+      }, 1000)
     }
   }
 }

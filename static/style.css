@@ -1214,8 +1214,7 @@ header {
 
 .attached-news-old-item {
     border-radius: 3px;
-    display: inline-flex;
-    margin-right: 3.2rem;
+    margin-right: 3rem;
     opacity: .32;
     overflow: hidden;
     transition: opacity .25s ease-in-out;

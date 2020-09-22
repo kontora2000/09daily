@@ -12,7 +12,7 @@ export default {
   props: {
     count: {
       type: String,
-      default: '10'
+      default: '12'
     },
     total: {
       type: String,
