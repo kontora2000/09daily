@@ -30,7 +30,8 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/infiniteloading', ssr: false },
-    { src: '~/plugins/elementUI', ssr: false }
+    { src: '~/plugins/vue-carousel', ssr: false }
+
   ],
   /*
   ** Nuxt.js dev-modules
