@@ -3,7 +3,7 @@
     <nuxt-link
       v-for="tag in tags"
       :key="tag.id"
-      :to="'/search/s?&t=' + tag.name.replace(' ', '_')"
+      :to="'/search/?s=' + encodeURIComponent( JSON.stringify(['#'+ tag.name.replace(' ','_')]))"
       class="post-tag"
     >
       {{ tag.name }}

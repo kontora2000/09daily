@@ -33,27 +33,21 @@ export default {
   },
   data () {
     return {
-      fontColor: '#000'
+      fontColor: '#000',
+      isWhite: false
     }
   },
   computed: {
-    isWhite () {
-      if (this.number < 0) { return false }
-      if (this.number > 4) {
-        return false
-      } else {
-        return true
-      }
-    }
   },
   mounted () {
-    // window.setTimeout(() => {
-    //   const gradientH = document.querySelector('.attached-news-main').offsetHeight
-    //   const y = this.cumulativeOffset(this.$el)
-    //   if (y < gradientH) { this.fontColor = '#fff' } else { this.fontColor = '#000000' }
-    //   console.log(gradientH)
-    //   console.log(y)
-    // }, 100)
+    window.setTimeout(() => {
+      const gradientH = document.querySelector('.attached-news-main')
+      this.isWhite = this.doElsCollide(gradientH, this.$el)
+    }, 100)
+    window.addEventListener('resize', () => {
+      const gradientH = document.querySelector('.attached-news-main')
+      this.isWhite = this.doElsCollide(gradientH, this.$el)
+    })
   },
   methods: {
     cumulativeOffset (element) {
@@ -67,6 +61,13 @@ export default {
         top,
         left
       }
+    },
+    doElsCollide (el1, el2) {
+      el1.offsetBottom = el1.offsetTop + el1.offsetHeight - window.innerHeight * 0.2
+      el2.offsetBottom = el2.offsetTop + el2.offsetHeight
+
+      return !((el1.offsetBottom < el2.offsetTop) ||
+             (el1.offsetTop > el2.offsetBottom))
     }
   }
 }

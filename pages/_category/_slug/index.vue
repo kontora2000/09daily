@@ -29,11 +29,11 @@
         <img :src="post.thumb">
         <div class="post-pic-comment-cont">
           <div class="post-pic-comment" />
-          <div class="post-pic-copyright">Роман Пилипей / EPA / Scanpix / LETA</div>
+          <div class="post-pic-copyright"></div>
         </div>
       </picture>
       <div v-html="post.post_content" />
-      <Tags />
+      <Tags :tags="post.tags" />
     </article>
     <article v-else class="longread-post-cont">
       <div class="longread-header-cont">
@@ -42,9 +42,8 @@
           <img class="longread-post-cover-img" :src="post.thumb">
           <div class="longread-post-cover-gradient" />
         </picture>
-        <div vi-f="post.copyright" class="longread-post-pic-copyright post-pic-copyright">
-          Роман Пилипей / EPA / Scanpix / LETA
-        </div>
+        <!-- <div vi-f="post.copyright" class="longread-post-pic-copyright post-pic-copyright">
+        </div> -->
         <div class="longread-text-over-pic">
           <div class="post-meta">
             <div class="publication-date">
@@ -79,7 +78,14 @@
     </article>
     <LightBox v-show="isLightboxOpened" />
     <LastNewsSingle />
-    <LoadMore v-if="!isLoadedOnce" count="10" />
+    <LoadMore v-if="!isLoadedOnce" count="12" :total="total" />
+    <infinite-loading
+      v-if="isLoadedOnce && isNothingToLoad"
+      @infinite="upload"
+    >
+      <div slot="spinner" />
+      <div slot="no-more" />
+    </infinite-loading>
   </main>
 </template>
 
@@ -107,7 +113,6 @@ export default {
     }
     try {
       const res = await $axios.get(request.endpoint)
-      console.log(res.data)
       if (res.data.day === false) {
         // eslint-disable-next-line no-throw-literal
         throw ({ statusCode: 404, message: 'Страница не найдена' })
@@ -121,10 +126,21 @@ export default {
   },
   data () {
     return {
-      isLightboxOpened: false
+      isLightboxOpened: false,
+      total: '12',
+      isLoadedOnce: false,
+      isLoading: false,
+      isNothingToLoad: false
     }
   },
   mounted () {
+    this.$root.$on('loadinglastsingle', () => { this.isLoading = true })
+    this.$root.$on('lastmounted', (total) => { this.total = total })
+    this.$root.$on('loadedlastsingle', (isNothingToLoad) => {
+      this.isLoadedOnce = true
+      this.isLoading = false
+      this.isNothingToLoad = isNothingToLoad
+    })
     if (this.$refs.content) {
       const pars = this.$refs.content.querySelectorAll('p')
       for (let i = 0; i < pars.length; i++) {
@@ -148,6 +164,11 @@ export default {
       }
     }
     this.$root.$on('closeLightBox', () => { this.isLightboxOpened = false })
+  },
+  methods: {
+    upload () {
+      this.$root.$emit('loadmore')
+    }
   },
   head () {
     return {

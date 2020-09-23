@@ -33,7 +33,10 @@ export default {
     } catch (e) {
       console.log(e)
     }
-    this.posts = res.data.posts
+    if (res.data.posts.length > 0) {
+      this.posts = res.data.posts
+      this.$root.$emit('lastmounted', res.data.allCount)
+    }
   },
   data () {
     return {
@@ -45,14 +48,19 @@ export default {
     this.$root.$on('loadmore', this.upload)
   },
   methods: {
-    async upload () {
-      const res = await this.$axios.get(`${urls.restURL}/last/${this.page}`)
-      if (res.data) {
-        if (res.data.posts.length > 0) {
-          this.posts.push(...res.data.posts)
-          this.$root.emit('loadedlastsingle')
+    upload () {
+      this.$root.$emit('loadinglastsingle')
+      window.setTimeout(async () => {
+        const res = await this.$axios.get(`${urls.restURL}/last/${this.page}`)
+        if (res.data) {
+          if (res.data.posts.length > 0) {
+            this.posts.push(...res.data.posts)
+            this.$root.$emit('loadedlastsingle', true)
+          } else {
+            this.$root.$emit('loadedlastsingle', false)
+          }
         }
-      }
+      }, 1000)
     }
   }
 }

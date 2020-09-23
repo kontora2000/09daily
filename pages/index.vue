@@ -160,7 +160,11 @@ export default {
           this.page = this.page + 1
           this.isLoadedOnce = true
           if ($state) { $state.loaded() }
-        } else if ($state) { $state.complete(); this.nothingToLoad = true; this.isLoading = false }
+        } else {
+          if ($state) { $state.complete() }
+          this.nothingToLoad = true
+          this.isLoading = false
+        }
       }, 1000)
     }
   }
