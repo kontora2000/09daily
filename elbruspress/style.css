@@ -1862,7 +1862,7 @@ footer input:matches([type="password"], [type="search"], [type="email"]):valid +
     padding: .1rem .4rem 0;
 }
 .footer-rubric-link:not(:last-child) {
-    margin-right: 3.6rem 
+    margin-right: 3.6rem
 }
 .footer-rubric-link:hover {
     border-color: var(--White100);
@@ -2162,4 +2162,14 @@ footer input:matches([type="password"], [type="search"], [type="email"]):valid +
     .footer-bg-triangle-right {
         display: none;
     }
+
+    .attached-news-old-item span{
+      font-size: 1.8rem !important;
+      line-height: 2.2rem !important;
+    }
+
+    .attached-news-old-nav {
+      display: none;
+    }
 }
+

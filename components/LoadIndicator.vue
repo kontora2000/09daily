@@ -20,6 +20,7 @@ export default {
     min-width: 100vw;
     overflow: hidden;
     height: 16rem;
+    background:transparent;
   }
 
   .load-indicator {
@@ -27,6 +28,8 @@ export default {
     left: 50%;
     position: relative;
     top: 50%;
+    background:transparent;
+
     transform: translate(-50%, -50%);
   }
 

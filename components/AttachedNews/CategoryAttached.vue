@@ -1,5 +1,5 @@
 <template>
-  <div v-if="posts.length > 3 && !$device.isMobile" id="attached-news-old-society" class="attached-news-old-cont">
+  <div v-if="posts.length > 3" id="attached-news-old-society" class="attached-news-old-cont">
     <div class="cont-header-rubric cont-header">
       <nuxt-link class="cont-header-rubric-link" :to="slug">
         {{ slugTitle }}
@@ -25,11 +25,11 @@
             </picture>
             <div class="attached-news-text-over-pic">
               <div class="news-item-meta">
-                <div class="news-rubric-link-wrapper">
+                <!-- <div class="news-rubric-link-wrapper">
                   {{ post.category }}
-                </div>
+                </div> -->
                 <div class="publication-date">
-                  {{ post.day }} {{ post.month }} {{ post.year }}
+                  {{ post.date }}
                 </div>
               </div>
               <div class="news-item-header-cont">
@@ -62,58 +62,6 @@
       </button>
     </div>
   </div>
-  <!-- <div v-else id="attached-news-old-society" class="attached-news-old-cont">
-    <client-only>
-      <carousel v-bind="options">
-        <slide v-for="post in posts" :key="post.id">
-          <div
-            class="attached-news-old-item"
-            style="width:100%"
-            :class="{'active': currentActive === index }"
-          >
-            <nuxt-link
-              class="attached-news-old-wrapper"
-              :to="'/' + post.category_link + '/' + post.slug"
-            >
-              <picture v-if="post.thumb" class="attached-news-old-cover-cont">
-                <img class="attached-news-old-cover-img" :src="post.thumb">
-                <div class="attached-news-old-cover-gradient" />
-              </picture>
-              <div class="attached-news-text-over-pic">
-                <div class="news-item-meta">
-                  <div class="publication-date">
-                    {{ post.date }}
-                  </div>
-                </div>
-                <div class="news-item-header-cont">
-                  <span class="news-item-header">{{ post.title }}</span>
-                  <span v-if="post.subheader" class="news-item-subheader">{{ post.subheader }}</span>
-                </div>
-              </div>
-            </nuxt-link>
-          </div>
-        </slide>
-      </carousel>
-    </client-only>
-    <div class="attached-news-old-nav">
-      <button
-        type="button"
-        class="attached-news-old-nav-button attached-news-old-nav-button-left"
-      >
-        <svg class="icon-svg icon-arrow-big-to-left">
-          <use xlink:href="sprite.svg#icon-arrow-big-to-left" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        class="attached-news-old-nav-button attached-news-old-nav-button-right"
-      >
-        <svg class="icon-svg icon-arrow-big-to-right">
-          <use xlink:href="sprite.svg#icon-arrow-big-to-right" />
-        </svg>
-      </button>
-    </div>
-  </div> -->
 </template>
 
 <script>
@@ -163,7 +111,8 @@ export default {
         dots: false,
         centerMode: true,
         slidesToShow: 1,
-        centerPadding: '10%'
+        centerPadding: this.$device.isMobile ? '10%' : '18%'
+        // adaptiveHeight: this.$device.isMobile
       }
     }
   },
@@ -172,69 +121,10 @@ export default {
   },
   methods: {
     left () {
-      // if (this.isAnimated === false) {
-      //   this.isAnimated = true
-      //   if (this.currentActive === 1) {
-      //     const w = this.elems[this.currentActive].offsetWidth
-      //     this.$nextTick(() => {
-      //       gsap.to(this.$refs.wrapper, {
-      //         x: `+=${w + 32}px`,
-      //         duration: this.animationDuration,
-      //         onComplete: () => {
-      //           this.isAnimated = false
-      //           this.currentActive = this.posts.length - 1
-      //           this.elems = this.$refs.wrapper.querySelectorAll('.attached-news-old-item')
-      //         }
-      //       })
-      //     })
-      //     this.currentPost = this.posts[this.currentActive]
-      //   } else {
-      //     this.isAnimated = true
-      //     const w = this.elems[this.currentActive].offsetWidth
-      //     gsap.to(this.$refs.wrapper, {
-      //       x: `+=${w + 32}px`,
-      //       duration: this.animationDuration,
-      //       onComplete: () => {
-      //         this.isAnimated = false
-      //         this.currentActive = this.currentActive - 1
-      //       }
-      //     })
-      //   }
-      // }
       this.$refs.carousel.prev()
-      this.$refs.currentActive = this.$refs.currentActive - 1
     },
     right () {
       this.$refs.carousel.next()
-      this.$refs.currentActive = this.$refs.currentActive + 1
-
-      // if (this.isAnimated === false) {
-      //   this.isAnimated = true
-      //   if (this.currentActive === (this.posts.length - 2)) {
-      //     const w = this.elems[this.currentActive].offsetWidth
-      //     this.posts.push(...this.posts)
-      //     gsap.to(this.$refs.wrapper, {
-      //       x: `-=${w + 32}px`,
-      //       duration: this.animationDuration,
-      //       onComplete: () => {
-      //         this.isAnimated = false
-      //         this.currentActive = this.currentActive + 1
-      //         this.elems = this.$refs.wrapper.querySelectorAll('.attached-news-old-item')
-      //       }
-      //     })
-      //   } else {
-      //     this.isAnimated = true
-      //     const w = this.elems[this.currentActive].offsetWidth
-      //     gsap.to(this.$refs.wrapper, {
-      //       x: `-=${w + 32}px`,
-      //       duration: this.animationDuration,
-      //       onComplete: () => {
-      //         this.isAnimated = false
-      //         this.currentActive = this.currentActive + 1
-      //       }
-      //     })
-      //   }
-      // }
     }
   }
 }
@@ -247,27 +137,61 @@ export default {
   height: 100%;
 }
 
-.attached-news-old-nav {
+.attached-news-old-cont {
   position: relative;
-  width: 99%;
-  top: -30rem;
-  z-index: 3;
+}
+
+.attached-news-old-cover-cont {
+  display: block;
+  position: relative;
+  height: 100%;
 }
 
 .attached-news-old-cover-cont img {
+  width: calc(100% - 3.2rem);
+  object-fit: cover;
+  position: relative;
+}
+
+.attached-news-old-cover-gradient {
+  top:0;
+  left: 0;
   width: calc(100% - 3.2rem);
 }
 
 .attached-news-text-over-pic {
   text-align: center;
-        width: calc(100% - 3.2rem);
+  width: calc(100% - 3.2rem);
+  position: relative;
+  bottom: 10rem;
+  z-index: 1;
+  object-fit: cover;
 
-    position: relative;
-    bottom: 10rem;
-    z-index: 1;
 }
 
 .slick-current .attached-news-old-item  {
   opacity: 1;
 }
+
+  @media (max-width: 460px) {
+    .attached-news-old-item span {
+      font-size: 2.2rem;
+      line-height: 2.4rem;
+    }
+
+    .attached-news-old-nav {
+      display: none;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .attached-news-old-item span {
+      font-size: 1.8rem;
+      line-height: 2.2rem;
+    }
+
+    .attached-news-old-nav {
+      display: none;
+    }
+  }
 </style>

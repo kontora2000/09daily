@@ -71,7 +71,7 @@
         <div slot="no-more" />
       </infinite-loading>
     </template>
-    <LoadIndicator v-if="isLoading && !nothingToLoad" />
+    <LoadIndicator v-show="isLoading && !nothingToLoad" />
   </main>
 </template>
 
@@ -165,7 +165,7 @@ export default {
           this.nothingToLoad = true
           this.isLoading = false
         }
-      }, 1000)
+      }, 800)
     }
   }
 }
